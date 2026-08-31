@@ -40,23 +40,30 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DuasTelas(modifier: Modifier = Modifier) {
+    var counterA by remember { mutableIntStateOf(0) }
+    var counterB by remember { mutableIntStateOf(0) }
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-        CounterTimeA(modifier = Modifier.weight(1f))
-        CounterTimeB(modifier = Modifier.weight(1f))
+        CounterTimeA(modifier = Modifier.weight(1f),counterA, onIncrement = {counterA++})
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {counterA = 0 ; counterB = 0}
+        ){
+            Text("Reiniciar Partida")
+        }
+        CounterTimeB(modifier = Modifier.weight(1f),counterB,onIncrement = {counterB++})
     }
 }
 
 @Composable
-fun CounterTimeA(modifier: Modifier = Modifier){
-    var counterA by remember { mutableIntStateOf(0) }
+fun CounterTimeA(modifier: Modifier = Modifier, counterA: Int, onIncrement: () -> Unit){
     Box(
         modifier = modifier.fillMaxSize()
     ) {
         Button(
             modifier = Modifier.fillMaxWidth().align(Alignment.TopCenter),
-            onClick = {counterA++}
+            onClick = onIncrement
         ) {
             Text(text = "+1")
         }
@@ -72,8 +79,7 @@ fun CounterTimeA(modifier: Modifier = Modifier){
 
 
 @Composable
-fun CounterTimeB(modifier: Modifier = Modifier){
-    var counterB by remember { mutableIntStateOf(0) }
+fun CounterTimeB(modifier: Modifier = Modifier, counterB: Int, onIncrement: () -> Unit){
     Box(
         modifier = modifier.fillMaxSize()
     ) {
@@ -84,7 +90,7 @@ fun CounterTimeB(modifier: Modifier = Modifier){
         )
         Button(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            onClick = {counterB++}
+            onClick = onIncrement
         ) {
             Text(text = "+1")
         }
