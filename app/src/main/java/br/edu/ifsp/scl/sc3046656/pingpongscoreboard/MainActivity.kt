@@ -13,16 +13,13 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import br.edu.ifsp.scl.sc3046656.pingpongscoreboard.ui.theme.PingPongScoreBoardTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,20 +36,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun DuasTelas(modifier: Modifier = Modifier) {
-    var counterA by remember { mutableIntStateOf(0) }
-    var counterB by remember { mutableIntStateOf(0) }
+fun DuasTelas(modifier: Modifier = Modifier,
+              viewModel: PlacarViewModel = viewModel()) {
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-        CounterTimeA(modifier = Modifier.weight(1f),counterA, onIncrement = {counterA++})
+        CounterTimeA(modifier = Modifier.weight(1f),viewModel.counterA, onIncrement = {viewModel.incrementA()})
         Button(
             modifier = Modifier.fillMaxWidth(),
-            onClick = {counterA = 0 ; counterB = 0}
+            onClick = {viewModel.reiniciar()}
         ){
             Text("Reiniciar Partida")
         }
-        CounterTimeB(modifier = Modifier.weight(1f),counterB,onIncrement = {counterB++})
+        CounterTimeB(modifier = Modifier.weight(1f),viewModel.counterB,onIncrement = {viewModel.incrementB()})
     }
 }
 
