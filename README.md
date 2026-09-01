@@ -4,5 +4,5 @@
 |-----------------------------------|-----------------|-------------------|
 | remember                          | Não Sobrevive   | Não Sobrevive     |
 | ViewModel + mutableStateOf        | Sobrevive       | Não Sobrevive     |
-| ViewModel + StateFlow              |                 |                   |
+| ViewModel + StateFlow              | Sobrevive       | Não Sobrevive     |
 | ViewModel + SavedStateHandle       |                 |                   |
