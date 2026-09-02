@@ -13,8 +13,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -40,20 +38,22 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DuasTelas(modifier: Modifier = Modifier,
               viewModel: PlacarViewModel = viewModel()) {
-    val counterA by viewModel.counterA.collectAsState()
-    val counterB by viewModel.counterB.collectAsState()
 
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-        CounterTimeA(modifier = Modifier.weight(1f),counterA, onIncrement = {viewModel.incrementA()})
+        CounterTimeA(modifier = Modifier.weight(1f),
+            counterA = viewModel.counterA,
+            onIncrement = {viewModel.incrementA()})
         Button(
             modifier = Modifier.fillMaxWidth(),
             onClick = {viewModel.reiniciar()}
         ){
             Text("Reiniciar Partida")
         }
-        CounterTimeB(modifier = Modifier.weight(1f),counterB,onIncrement = {viewModel.incrementB()})
+        CounterTimeB(modifier = Modifier.weight(1f),
+            counterB = viewModel.counterB,
+            onIncrement = {viewModel.incrementB()})
     }
 }
 
